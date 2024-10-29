@@ -776,6 +776,22 @@
         // 拖曳切換狀態變數
         let isDrageClick = false;
 
+        // 時鐘1開始拖曳事件
+        elClock.addEventListener('dragstart', function (e) {
+            console.log(e)
+            if (isDrageClick) {
+                offsetX = e.clientX - e.target.offsetLeft;
+                offsetY = e.clientY - e.target.offsetTop;
+                onMouseMove(e)
+            }
+        })
+        // 時鐘1結束拖曳事件
+        elClock.addEventListener('dragend', function (e) {
+            if (isDrageClick) {
+                onMouseMove(e)
+            }
+        })
+
         // 時鐘2開始拖曳事件
         elClock2.addEventListener('dragstart', function (e) {
             console.log(e)
@@ -858,12 +874,14 @@
         document.getElementById('drage-btn').onclick = () => {
             isDrageClick = !isDrageClick
             if (isDrageClick){
+                elClock.setAttribute('draggable', 'true')
                 elClock2.setAttribute('draggable', 'true')
                 tv.setAttribute('draggable', 'true')
                 elClockText.setAttribute('draggable', 'true')
             }
 
             else{
+                elClock.setAttribute('draggable', 'true')
                 elClock2.setAttribute('draggable', 'false')
                 tv.setAttribute('draggable', 'false')
                 elClockText.setAttribute('draggable', 'true')
