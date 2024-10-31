@@ -494,7 +494,7 @@
         }
 
         /* 背景影片容器遮色片 */
-        .background-video {
+        .bg-video {
             position: absolute;
             width: 100vw;
             height: 99vh;
@@ -505,7 +505,7 @@
         }
 
         /* 背景影片 */
-        .background-video video {
+        .bg-video video {
             width: 100%;
             height: 100%;
         }
@@ -605,7 +605,7 @@
             font-weight: 600;
             letter-spacing: 1px;
             background: linear-gradient(135deg, #43ff14, #ffeb3b, #ff00e0);
-                background-clip: text;
+            background-clip: text;
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             font-family: 'PixeloidSansBold';
@@ -623,8 +623,7 @@
 </head>
 
 <body>
-    <!-- 背景影片 -->
-    <div class="background-video">
+    <div class="bg-video">
         <video muted autoplay loop>
             <source src="./FINAL_FANTASY_PIXEL_REMASTER___Promotional_Trailer.mp4"
                 type="video/mp4">
@@ -669,48 +668,14 @@
             <div id="hour"></div>
             <div id="minute"></div>
             <div id="second"></div>
-            <div class="numbers">
-                <span style="--i:0;"><b>XII</b><img class="logo-0" src="./images/12_XII.png"
-                        alt="Final Fantasy logo12"></span>
-                <span style="--i:1;"><b>I</b><img class="logo-1" src="./images/1_I.png"
-                        alt="Final Fantasy logo1"></span>
-                <span style="--i:2;"><b>II</b><img class="logo-2" src="./images/2_II.png"
-                        alt="Final Fantasy logo2"></span>
-                <span style="--i:3;"><b>III</b><img class="logo-3" src="./images/3_III.png"
-                        alt="Final Fantasy logo3"></span>
-                <span style="--i:4;"><b>IV</b><img class="logo-4" src="./images/4_IV.png"
-                        alt="Final Fantasy logo4"></span>
-                <span style="--i:5;"><b>V</b><img class="logo-5" src="./images/5_V.png"
-                        alt="Final Fantasy logo5"></span>
-                <span style="--i:6;"><b>VI</b><img class="logo-6" src="./images/6_VI.png"
-                        alt="Final Fantasy logo6"></span>
-                <span style="--i:7;"><b>VII</b><img class="logo-7" src="./images/7_VII.png"
-                        alt="Final Fantasy logo7"></span>
-                <span style="--i:8;"><b>VIII</b><img class="logo-8" src="./images/8_VIII.png"
-                        alt="Final Fantasy logo8"></span>
-                <span style="--i:9;"><b>IX</b><img class="logo-9" src="./images/9 IX.png"
-                        alt="Final Fantasy logo9"></span>
-                <span style="--i:10;"><b>X</b><img class="logo-10" src="./images/10_X.png"
-                        alt="Final Fantasy logo10"></span>
-                <span style="--i:11;"><b>XI</b><img class="logo-11" src="./images/11_XI.png"
-                        alt="Final Fantasy logo11"></span>
-            </div>
-            <div class="numbers2">
-                <span style="--a:0;"><b>XIV</b><img class="logo-14" src="./images/14_XIV.png"
-                        alt="Final Fantasy logo13"></span>
-                <span style="--a:1;"><b>XV</b><img class="logo-15" src="./images/15_XV.png"
-                        alt="Final Fantasy logo9"></span>
-                <span style="--a:2;"><img class="logo-tactics" src="./images/TACTICS.png"
-                        alt="Final Fantasy logo10"></span>
-                <span style="--a:3;"><b>XIII</b><img class="logo-13" src="./images/13_XIII.png"
-                        alt="Final Fantasy logo11"></span>
-            </div>
+            <div class="numbers"></div>
+            <div class="numbers2"></div>
         </div>
     <!-- 時區的地區、時間 -->
     <div class="clock-text">
         <div class="display">
             <span class="local-text">台灣</span>
-            <span class="text">00:00:00</span>
+            <span class="text">00:</span>00:</span>00</span>
         </div>
     </div>
 
@@ -770,72 +735,27 @@
         const tv = document.querySelector('.tv')
         // 時鐘文字
         const elClockText = document.querySelector('.clock-text')
+        // 切換拖曳按鍵
+        const drageBtn = document.getElementById('drage-btn')
+        // 圖片
+        const imgs = document.querySelectorAll('img')
         
         // 紀錄拖曳後，滑鼠與元素之間的位置變數。
-        let offsetX, offsetY
+        let offsetX = 0, offsetY = 0
         // 拖曳切換狀態變數
         let isDrageClick = false;
 
-        // 時鐘1開始拖曳事件
-        elClock.addEventListener('dragstart', function (e) {
-            console.log(e)
-            if (isDrageClick) {
+        // 拖曳事件開始
+        window.addEventListener('dragstart', function(e) {
+            if(isDrageClick){
                 offsetX = e.clientX - e.target.offsetLeft;
                 offsetY = e.clientY - e.target.offsetTop;
                 onMouseMove(e)
             }
         })
-        // 時鐘1結束拖曳事件
-        elClock.addEventListener('dragend', function (e) {
-            if (isDrageClick) {
-                onMouseMove(e)
-            }
-        })
-
-        // 時鐘2開始拖曳事件
-        elClock2.addEventListener('dragstart', function (e) {
-            console.log(e)
-            if (isDrageClick) {
-                offsetX = e.clientX - e.target.offsetLeft;
-                offsetY = e.clientY - e.target.offsetTop;
-                onMouseMove(e)
-            }
-        })
-        // 時鐘2結束拖曳事件
-        elClock2.addEventListener('dragend', function (e) {
-            if (isDrageClick) {
-                onMouseMove(e)
-            }
-        })
-
-        // 螢幕開始拖曳事件
-        tv.addEventListener('dragstart', function (e) {
-            console.log(e)
-            if (isDrageClick) {
-                offsetX = e.clientX - e.target.offsetLeft;
-                offsetY = e.clientY - e.target.offsetTop;
-                onMouseMove(e)
-            }
-        })
-        // 螢幕結束拖曳事件
-        tv.addEventListener('dragend', function (e) {
-            if (isDrageClick) {
-                onMouseMove(e)
-            }
-        })
-
-        // 時鐘文字開始拖曳事件
-        elClockText.addEventListener('dragstart', function (e) {
-            console.log(e)
-            if (isDrageClick) {
-                offsetX = e.clientX - e.target.offsetLeft;
-                offsetY = e.clientY - e.target.offsetTop;
-                onMouseMove(e)
-            }
-        })
-        // 時鐘文字拖曳事件
-        elClockText.addEventListener('dragend', function (e) {
-            if (isDrageClick) {
+        // 拖曳事件結束
+        window.addEventListener('dragend', function(e) {
+            if(isDrageClick){
                 onMouseMove(e)
             }
         })
@@ -871,46 +791,47 @@
         }
 
         // 切換拖曳按鍵觸發
-        document.getElementById('drage-btn').onclick = () => {
+        drageBtn.onclick = () => {
             isDrageClick = !isDrageClick
             if (isDrageClick){
                 elClock.setAttribute('draggable', 'true')
                 elClock2.setAttribute('draggable', 'true')
                 tv.setAttribute('draggable', 'true')
                 elClockText.setAttribute('draggable', 'true')
-            }
 
+                imgs.forEach(img =>{
+                    img.setAttribute('draggable', 'false')
+                })
+            }
             else{
-                elClock.setAttribute('draggable', 'true')
+                elClock.setAttribute('draggable', 'false')
                 elClock2.setAttribute('draggable', 'false')
                 tv.setAttribute('draggable', 'false')
-                elClockText.setAttribute('draggable', 'true')
+                elClockText.setAttribute('draggable', 'false')
             }
-
         }
 
         // 時鐘1、2的3個指針度數計算、顯示時間文字 function
         const clock = () => {
             const date = DateTime.local()
             const rezone = DateTime.fromObject({}, { zone: zonelang[zoneCount] })
-            const h = rezone.hour
-            const m = rezone.minute
-            const s = rezone.second
+            const hour = rezone.hour
+            const minute = rezone.minute
+            const second = rezone.second
 
             localText.innerText = `${zoneSelectOption[zoneCount].innerText}`
-            elHour.style.transform = `rotate(${h * 30 + 90}deg)`
-            elMinute.style.transform = `rotate(${m * 6 + 90}deg)`
-            elSecond.style.transform = `rotate(${s * 6 + 90}deg)`
+            elHour.style.transform = `rotate(${hour * 30 + 90}deg)`
+            elMinute.style.transform = `rotate(${minute * 6 + 90}deg)`
+            elSecond.style.transform = `rotate(${second * 6 + 90}deg)`
 
-            elHour2.style.transform = `rotate(${h * 30 + 90}deg)`
-            elMinute2.style.transform = `rotate(${m * 6 + 90}deg)`
-            elSecond2.style.transform = `rotate(${s * 6 + 90}deg)`
-            elText.innerText = `${h.toString().padStart(2, '0')}:${m.toString().padStart(2, '0')}:${s.toString().padStart(2, '0')}`
+            elHour2.style.transform = `rotate(${hour * 30 + 90}deg)`
+            elMinute2.style.transform = `rotate(${minute * 6 + 90}deg)`
+            elSecond2.style.transform = `rotate(${second * 6 + 90}deg)`
+            elText.innerHTML = `${hour.toString().padStart(2, '0')}:${minute.toString().padStart(2, '0')}:${second.toString().padStart(2, '0')}`
         }
 
         // 按下切換時區按鈕跳出選單
         btn1.addEventListener('click', (event) => {
-            console.log(btn1Text)
             event.stopPropagation()
             isClicked = !isClicked
             if (isClicked) {
@@ -980,9 +901,60 @@
             }
         }
         // 每1秒執行一次clock function，讓時間更新
-        setInterval(clock, 1000)
         clock()
+        setInterval(clock, 1000)
 
+        const logos = {
+            "area":[
+            {text:"XII",src:"./images/12_XII.png",alt:'Final Fantasy logo12'},
+            {text:"I",src:"./images/1_I.png",alt:'Final Fantasy logo1'},
+            {text:"II",src:"./images/2_II.png",alt:'Final Fantasy logo2'},
+            {text:"III",src:"./images/3_III.png",alt:'Final Fantasy logo3'},
+            {text:"IV",src:"./images/4_IV.png",alt:'Final Fantasy logo4'},
+            {text:"V",src:"./images/5_V.png",alt:'Final Fantasy logo5'},
+            {text:"VI",src:"./images/6_VI.png",alt:'Final Fantasy logo6'}, 
+            {text:"VII",src:"./images/7_VII.png",alt:'Final Fantasy logo7'},
+            {text:"VIII",src:"./images/8_VIII.png",alt:'Final Fantasy logo8'}, 
+            {text:"IX",src:"./images/9 IX.png",alt:'Final Fantasy logo9'},
+            {text:"X",src:"./images/10_X.png",alt:'Final Fantasy logo10'},
+            {text:"XI",src:"./images/11_XI.png",alt:'Final Fantasy logo11'}   
+            ],
+            "area2":[
+            {text:"XIV",src:"./images/14_XIV.png",alt:'Final Fantasy logo13',class:"logo-14"},
+            {text:"XV",src:"./images/15_XV.png",alt:'Final Fantasy logo14',class:"logo-15"},
+            {text:"",src:"./images/TACTICS.png",alt:'Final Fantasy logoTactics',class:"logo-tactics"},
+            {text:"XIII",src:"./images/13_XIII.png",alt:'Final Fantasy logo16',class:"logo-13"}
+            ]
+        }
+        // 時鐘1外圈的圖片文字HTML
+        for(let i = 0;i < 12; i++){
+            const numbers = document.querySelector('.numbers')
+            const span = document.createElement('span')
+            const b = document.createElement('b')
+            const img = document.createElement('img')
+            span.style.setProperty("--i",i)
+            b.innerText = logos.area[i].text
+            img.classList.add(`logo-${i}`)
+            img.src = logos.area[i].src
+            img.alt = logos.area[i].alt
+            span.append(b,img)
+            numbers.append(span)
+        }
+
+        // 時鐘1內圈的圖片文字HTML
+        for(let i = 0;i < 4; i++){
+            const numbers2 = document.querySelector('.numbers2')
+            const span = document.createElement('span')
+            const b = document.createElement('b')
+            const img = document.createElement('img')
+            span.style.setProperty("--a",i)
+            b.innerText = logos.area2[i].text
+            img.classList.add(logos.area2[i].class)
+            img.src = logos.area2[i].src
+            img.alt = logos.area2[i].alt
+            span.append(b,img)
+            numbers2.append(span)
+        }
 
     </script>
 </body>
