@@ -992,7 +992,7 @@
         // 影片可以播放後事件
         video[1].oncanplaythrough = () =>{
             duration = Math.floor(video[1].duration)
-            console.log(duration)            
+            // console.log(duration)            
         }
 
         // 影片計時function
@@ -1004,7 +1004,7 @@
 
             intervalVideo = setInterval(() => {
                 Time += 1
-                console.log(Time)
+                // console.log(Time)
                 if(Time >= duration){
                     Time = 0
 
@@ -1090,34 +1090,36 @@
         setInterval(clock, 1000)
 
         // 時鐘1外圈的圖片文字HTML
-        for(let i = 0;i < 12; i++){
+        // Object.values可以將物件轉成陣列
+        Object.values(logos.area).forEach((imgs,index) =>{
             const numbers = document.querySelector('.numbers')
             const span = document.createElement('span')
             const b = document.createElement('b')
             const img = document.createElement('img')
-            span.style.setProperty("--i",i)
-            b.innerText = logos.area[i].text
-            img.classList.add(`logo-${i}`)
-            img.src = logos.area[i].src
-            img.alt = logos.area[i].alt
+            span.style.setProperty("--i",index)
+            b.innerText = imgs.text
+            img.classList.add(`logo-${index}`)
+            img.src = imgs.src
+            img.alt = imgs.alt
             span.append(b,img)
             numbers.append(span)
-        }
+        })
 
         // 時鐘1內圈的圖片文字HTML
-        for(let i = 0;i < 4; i++){
+        Object.values(logos.area2).forEach((imgs,index) =>{
             const numbers2 = document.querySelector('.numbers2')
             const span = document.createElement('span')
             const b = document.createElement('b')
             const img = document.createElement('img')
-            span.style.setProperty("--a",i)
-            b.innerText = logos.area2[i].text
-            img.classList.add(logos.area2[i].class)
-            img.src = logos.area2[i].src
-            img.alt = logos.area2[i].alt
+            
+            span.style.setProperty("--a",index)
+            b.innerText = imgs.text
+            img.classList.add(imgs.class)
+            img.src = imgs.src
+            img.alt = imgs.alt            
             span.append(b,img)
             numbers2.append(span)
-        }
+        })
 
     </script>
 </body>
