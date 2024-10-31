@@ -950,13 +950,18 @@
         let currIndex = 0
         let Time = 0;
         let intervalVideo
+        let duration
 
-        video[1].addEventListener('loadedmetadata', function () {
+        video[1].onloadedmetadata = () => {
+            duration = video[1].duration * 1000
+            console.log(duration)
+        }
+
         startInterrval()
-        });
-
         function startInterrval() {
-            const duration = video[1].duration * 1000; // 獲取影片時長
+
+            clearInterval(intervalVideo)
+            Time = 0;
 
             intervalVideo = setInterval(() => {
                 Time += 1000
@@ -976,13 +981,13 @@
             },1000)
         }
 
-        
         btnNext.onclick = () =>{
             currIndex ++
             if(currIndex >= videolist.length){
                 currIndex = 0
             }
             videoPlay()
+            startInterrval()
         }
 
         btnPrevious.onclick = () =>{
@@ -991,6 +996,7 @@
                 currIndex = videolist.length
             }
             videoPlay()
+            startInterrval()
         }
         function videoPlay(){
             for(let i = 0;i < video.length; i++){
