@@ -801,12 +801,51 @@
         const btnPrevious = document.querySelector('.btn-previous')
         const btnPlay = document.querySelector('.btn-play')
         const btnNext = document.querySelector('.btn-next')
+        // 播放影片按鈕觸發狀態
+        let playState = false
+
+        //背景影片src清單
+        const videolist = ["./FINAL_FANTASY_PIXEL_REMASTER___Promotional_Trailer.mp4","./Final Fantasy Pixel Remaster_January Sale Trailer.mp4","FF PIXEL REMASTER Console version Promotion Trailer.mp4"]
+
+        // 時鐘內、外圈圖片、文字
+        const logos = {
+            "area":[
+            {text:"XII",src:"./images/12_XII.png",alt:'Final Fantasy logo12'},
+            {text:"I",src:"./images/1_I.png",alt:'Final Fantasy logo1'},
+            {text:"II",src:"./images/2_II.png",alt:'Final Fantasy logo2'},
+            {text:"III",src:"./images/3_III.png",alt:'Final Fantasy logo3'},
+            {text:"IV",src:"./images/4_IV.png",alt:'Final Fantasy logo4'},
+            {text:"V",src:"./images/5_V.png",alt:'Final Fantasy logo5'},
+            {text:"VI",src:"./images/6_VI.png",alt:'Final Fantasy logo6'}, 
+            {text:"VII",src:"./images/7_VII.png",alt:'Final Fantasy logo7'},
+            {text:"VIII",src:"./images/8_VIII.png",alt:'Final Fantasy logo8'}, 
+            {text:"IX",src:"./images/9 IX.png",alt:'Final Fantasy logo9'},
+            {text:"X",src:"./images/10_X.png",alt:'Final Fantasy logo10'},
+            {text:"XI",src:"./images/11_XI.png",alt:'Final Fantasy logo11'}   
+            ],
+            "area2":[
+            {text:"XIV",src:"./images/14_XIV.png",alt:'Final Fantasy logo13',class:"logo-14"},
+            {text:"XV",src:"./images/15_XV.png",alt:'Final Fantasy logo14',class:"logo-15"},
+            {text:"",src:"./images/TACTICS.png",alt:'Final Fantasy logoTactics',class:"logo-tactics"},
+            {text:"XIII",src:"./images/13_XIII.png",alt:'Final Fantasy logo16',class:"logo-13"}
+            ]
+        }
+
+        // 影片
+        const video = document.querySelectorAll('video')
+        // 影片播放的目前索引
+        let currIndex = 0
+        // 影片計時計數
+        let Time = 0;
+        // 影片計時器
+        let intervalVideo
+        // 影片總長度
+        let duration
 
         // 紀錄拖曳後，滑鼠與元素之間的位置變數。
         let offsetX = 0, offsetY = 0
         // 拖曳切換狀態變數
         let isDrageClick = false;
-
 
         // 拖曳事件開始
         window.addEventListener('dragstart', function(e) {
@@ -932,39 +971,39 @@
             changeStyle(isClicked2)
         })
 
-
-        // btnPrevious
-        // btnPlay
-        let playState = false
+        // 播放影片按鈕
         btnPlay.onclick = () =>{
             playState = !playState
-            if(playState)
+            if(playState){
+                clearInterval(intervalVideo)
                 videoPause()
-            else 
+            }
+            else {
+                startInterrval()
                 videoPlay()
-        }
-        
-        const videolist = ["./FINAL_FANTASY_PIXEL_REMASTER___Promotional_Trailer.mp4","./Final Fantasy Pixel Remaster_January Sale Trailer.mp4","FF PIXEL REMASTER Console version Promotion Trailer.mp4"]
-
-        const video = document.querySelectorAll('video')
-        let currIndex = 0
-        let Time = 0;
-        let intervalVideo
-        let duration
-
-        video[1].onloadedmetadata = () => {
-            duration = video[1].duration * 1000
-            console.log(duration)
+            }
         }
 
+        // 影片讀取完後事件
+        video[1].onloadedmetadata = () =>{
+            duration = Math.floor(video[1].duration)       
+        }
+
+        // 影片可以播放後事件
+        video[1].oncanplaythrough = () =>{
+            duration = Math.floor(video[1].duration)
+            console.log(duration)            
+        }
+
+        // 影片計時function
         startInterrval()
-        function startInterrval() {
 
+        function startInterrval() {
             clearInterval(intervalVideo)
             Time = 0;
 
             intervalVideo = setInterval(() => {
-                Time += 1000
+                Time += 1
                 console.log(Time)
                 if(Time >= duration){
                     Time = 0
@@ -976,11 +1015,12 @@
                     videoPlay()
                     clearInterval(intervalVideo)
 
-                    setTimeout(startInterrval, 1000)
+                    setTimeout(startInterrval,0)
                 }
             },1000)
         }
 
+        //下一個影片
         btnNext.onclick = () =>{
             currIndex ++
             if(currIndex >= videolist.length){
@@ -989,15 +1029,16 @@
             videoPlay()
             startInterrval()
         }
-
+        //上一個影片
         btnPrevious.onclick = () =>{
             currIndex --
             if(currIndex < 0){
-                currIndex = videolist.length
+                currIndex = videolist.length - 1
             }
             videoPlay()
             startInterrval()
         }
+        // 播放影片
         function videoPlay(){
             for(let i = 0;i < video.length; i++){
                 video[i].src = videolist[currIndex]
@@ -1005,7 +1046,7 @@
             }
             btnPlay.innerHTML = `<i class="fa-solid fa-stop"></i>`
         }
-
+        // 停止影片
         function videoPause(){
             for(let i = 0;i < video.length; i++){
                 video[i].pause()
@@ -1047,29 +1088,6 @@
         // 每1秒執行一次clock function，讓時間更新
         clock()
         setInterval(clock, 1000)
-
-        const logos = {
-            "area":[
-            {text:"XII",src:"./images/12_XII.png",alt:'Final Fantasy logo12'},
-            {text:"I",src:"./images/1_I.png",alt:'Final Fantasy logo1'},
-            {text:"II",src:"./images/2_II.png",alt:'Final Fantasy logo2'},
-            {text:"III",src:"./images/3_III.png",alt:'Final Fantasy logo3'},
-            {text:"IV",src:"./images/4_IV.png",alt:'Final Fantasy logo4'},
-            {text:"V",src:"./images/5_V.png",alt:'Final Fantasy logo5'},
-            {text:"VI",src:"./images/6_VI.png",alt:'Final Fantasy logo6'}, 
-            {text:"VII",src:"./images/7_VII.png",alt:'Final Fantasy logo7'},
-            {text:"VIII",src:"./images/8_VIII.png",alt:'Final Fantasy logo8'}, 
-            {text:"IX",src:"./images/9 IX.png",alt:'Final Fantasy logo9'},
-            {text:"X",src:"./images/10_X.png",alt:'Final Fantasy logo10'},
-            {text:"XI",src:"./images/11_XI.png",alt:'Final Fantasy logo11'}   
-            ],
-            "area2":[
-            {text:"XIV",src:"./images/14_XIV.png",alt:'Final Fantasy logo13',class:"logo-14"},
-            {text:"XV",src:"./images/15_XV.png",alt:'Final Fantasy logo14',class:"logo-15"},
-            {text:"",src:"./images/TACTICS.png",alt:'Final Fantasy logoTactics',class:"logo-tactics"},
-            {text:"XIII",src:"./images/13_XIII.png",alt:'Final Fantasy logo16',class:"logo-13"}
-            ]
-        }
 
         // 時鐘1外圈的圖片文字HTML
         for(let i = 0;i < 12; i++){
