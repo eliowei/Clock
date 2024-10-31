@@ -611,6 +611,59 @@
             font-family: 'PixeloidSansBold';
             animation: animates 8s linear infinite;
         }
+
+        .display .btn-previous {
+            position: absolute;
+            left:40%;
+            top:40%;
+            i{
+                text-align: center;
+                font-size:25px;
+                color:white;
+                padding:10px;
+                border-radius: 5px;
+
+                &:hover {
+                background:#222;
+                }
+            }
+        }
+
+        .display .btn-play{
+            position: absolute;
+            left:50%;
+            top:40%;
+            i{
+                text-align: center;
+                font-size:25px;
+                color:white;
+                padding:10px;
+                border-radius: 5px;
+
+                &:hover {
+                background:#222;
+                }
+            }
+        }
+
+        .display .btn-next{
+            position: absolute;
+            left:60%;
+            top:40%;
+            i{
+                text-align: center;
+                font-size:25px;
+                color:white;
+                padding:10px;
+                border-radius: 5px;
+
+                &:hover {
+                background:#222;
+                }
+            }
+        }
+        
+
         @keyframes animates {
         100%{
             filter: hue-rotate(360deg);
@@ -620,6 +673,7 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Luxurious+Roman&display=swap" rel="stylesheet">
+    <link rel='stylesheet' href='https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css' integrity='sha512-Kc323vGBEqzTmouAECnVceyQqyqdsSiqLQISBL29aUW4U/M7pSPA/gEUZQqv1cwx4OnYxTxve5UMg5GT6L4JJg==' crossorigin='anonymous'/>
 </head>
 
 <body>
@@ -676,6 +730,9 @@
         <div class="display">
             <span class="local-text">台灣</span>
             <span class="text">00:00:00</span>
+            <div class="btn-previous"><i class="fa-solid fa-backward"></i></div>
+            <div class="btn-play"><i class="fa-solid fa-stop"></i></div>
+            <div class="btn-next"><i class="fa-solid fa-forward"></i></div>
         </div>
     </div>
 
@@ -694,6 +751,7 @@
     </div>
     <!-- luxon時間套件 -->
     <script src="https://cdn.jsdelivr.net/npm/luxon@3.5.0/build/global/luxon.min.js"></script>
+
     <script>
         // 時鐘1的時間
         const elHour = document.getElementById('hour')
@@ -739,11 +797,16 @@
         const drageBtn = document.getElementById('drage-btn')
         // 圖片
         const imgs = document.querySelectorAll('img')
-        
+        // 切換影片按鈕
+        const btnPrevious = document.querySelector('.btn-previous')
+        const btnPlay = document.querySelector('.btn-play')
+        const btnNext = document.querySelector('.btn-next')
+
         // 紀錄拖曳後，滑鼠與元素之間的位置變數。
         let offsetX = 0, offsetY = 0
         // 拖曳切換狀態變數
         let isDrageClick = false;
+
 
         // 拖曳事件開始
         window.addEventListener('dragstart', function(e) {
@@ -869,6 +932,81 @@
             changeStyle(isClicked2)
         })
 
+
+        // btnPrevious
+        // btnPlay
+        let playState = false
+        btnPlay.onclick = () =>{
+            playState = !playState
+            if(playState)
+                videoPause()
+            else 
+                videoPlay()
+        }
+        
+        const videolist = ["./FINAL_FANTASY_PIXEL_REMASTER___Promotional_Trailer.mp4","./Final Fantasy Pixel Remaster_January Sale Trailer.mp4","FF PIXEL REMASTER Console version Promotion Trailer.mp4"]
+
+        const video = document.querySelectorAll('video')
+        let currIndex = 0
+        let Time = 0;
+        let intervalVideo
+
+        video[1].addEventListener('loadedmetadata', function () {
+        startInterrval()
+        });
+
+        function startInterrval() {
+            const duration = video[1].duration * 1000; // 獲取影片時長
+
+            intervalVideo = setInterval(() => {
+                Time += 1000
+                console.log(Time)
+                if(Time >= duration){
+                    Time = 0
+
+                    currIndex ++
+                    if(currIndex >= videolist.length){
+                        currIndex = 0
+                    }
+                    videoPlay()
+                    clearInterval(intervalVideo)
+
+                    setTimeout(startInterrval, 1000)
+                }
+            },1000)
+        }
+
+        
+        btnNext.onclick = () =>{
+            currIndex ++
+            if(currIndex >= videolist.length){
+                currIndex = 0
+            }
+            videoPlay()
+        }
+
+        btnPrevious.onclick = () =>{
+            currIndex --
+            if(currIndex < 0){
+                currIndex = videolist.length
+            }
+            videoPlay()
+        }
+        function videoPlay(){
+            for(let i = 0;i < video.length; i++){
+                video[i].src = videolist[currIndex]
+                video[i].play()
+            }
+            btnPlay.innerHTML = `<i class="fa-solid fa-stop"></i>`
+        }
+
+        function videoPause(){
+            for(let i = 0;i < video.length; i++){
+                video[i].pause()
+            }
+            btnPlay.innerHTML = `<i class="fa-solid fa-play"></i>`
+        }
+
         // 切換樣式的function，偵測切換時鐘的變數
         // 按下變成true後，讓時鐘1透明度變成0
         // 再利用計時器過0.5秒後讓時鐘1的display -> none，時鐘2的display ->　block　透明度為0
@@ -926,6 +1064,7 @@
             {text:"XIII",src:"./images/13_XIII.png",alt:'Final Fantasy logo16',class:"logo-13"}
             ]
         }
+
         // 時鐘1外圈的圖片文字HTML
         for(let i = 0;i < 12; i++){
             const numbers = document.querySelector('.numbers')
