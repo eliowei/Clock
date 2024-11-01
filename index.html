@@ -123,8 +123,7 @@
             box-shadow: 5px 5px 15px #152b4a66,
                 inset 0px 0px 5px rgba(255, 255, 255, 0.75),
                 0px 0px 20px rgba(255, 255, 255, 1);
-                /* animation: rgb 20s linear 1s infinite alternate both; */
-            z-index:900;
+            z-index: 900;
         }
 
         /* 時鐘中心點 */
@@ -386,8 +385,7 @@
             box-shadow: 5px 5px 15px #152b4a66,
                 inset 0px 0px 5px rgba(170, 65, 65, 0.75),
                 -6px -6px 10px rgba(255, 255, 255, 1);
-                /* animation: rgb 20s linear 1s infinite alternate both; */
-            z-index:900;
+            z-index: 900;
         }
 
         /* 時鐘2的時針 */
@@ -444,6 +442,7 @@
             display: inline-block;
             transform: rotate(calc(-90deg * var(--i)))
         }
+
         /* 時鐘2的內圈 */
         #clock2::before {
             content: '';
@@ -453,6 +452,7 @@
             border-radius: 50%;
             animation: animate 4s linear infinite;
         }
+
         /* 時鐘2內圈動畫*/
         @keyframes animate {
             0% {
@@ -473,20 +473,7 @@
             border-radius: 50%;
             animation: animate 2s linear infinite;
         }
-        /* 陰影rgb動畫 */
-        @keyframes rgb {
-            0% {
-                filter: drop-shadow(0 0 15px rgb(255, 0, 0)) drop-shadow(0 0 15px rgb(255, 0, 0))
-            }
 
-            50% {
-                filter: drop-shadow(0 0 15px rgb(0, 255, 0)) drop-shadow(0 0 15px rgb(0, 255, 0))
-            }
-
-            100% {
-                filter: drop-shadow(0 0 15px rgb(0, 0, 255)) drop-shadow(0 0 15px rgb(0, 0, 255))
-            }
-        }
         /* 字型設定 */
         @font-face {
             font-family: 'PixeloidSansBold';
@@ -509,6 +496,7 @@
             width: 100%;
             height: 100%;
         }
+
         /* 螢幕 */
         .tv {
             position: absolute;
@@ -519,7 +507,7 @@
             left: 30%;
             top: 35%;
         }
-        
+
         /* 螢幕內的動畫 */
         .tv video {
             position: absolute;
@@ -571,12 +559,13 @@
             /* animation: animates 8s linear infinite; */
         }
 
+        /* 時鐘文字、播放影片按鈕容器 */
         .clock-text .display {
             position: absolute;
-            top:50%;
-            left:50%;
-            transform: translate(-50%,-50%);
-            z-index:999;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            z-index: 999;
             height: 135px;
             width: 485px;
             background: black;
@@ -612,84 +601,90 @@
             animation: animates 8s linear infinite;
         }
 
+        /* 下一個影片按鈕 */
         .display .btn-previous {
             position: absolute;
-            left:40%;
-            top:40%;
-            i{
+            left: 40%;
+            top: 40%;
+
+            i {
                 text-align: center;
-                font-size:25px;
-                color:white;
-                padding:10px;
+                font-size: 25px;
+                color: white;
+                padding: 10px;
                 border-radius: 5px;
 
                 &:hover {
-                background:#222;
+                    background: #222;
                 }
             }
         }
 
-        .display .btn-play{
+        /* 播放/停止 影片按鈕 */
+        .display .btn-play {
             position: absolute;
-            left:50%;
-            top:40%;
-            i{
+            left: 50%;
+            top: 40%;
+
+            i {
                 text-align: center;
-                font-size:25px;
-                color:white;
-                padding:10px;
+                font-size: 25px;
+                color: white;
+                padding: 10px;
                 border-radius: 5px;
 
                 &:hover {
-                background:#222;
+                    background: #222;
                 }
             }
         }
 
-        .display .btn-next{
+        /* 下一個影片按鈕 */
+        .display .btn-next {
             position: absolute;
-            left:60%;
-            top:40%;
-            i{
+            left: 60%;
+            top: 40%;
+
+            i {
                 text-align: center;
-                font-size:25px;
-                color:white;
-                padding:10px;
+                font-size: 25px;
+                color: white;
+                padding: 10px;
                 border-radius: 5px;
 
                 &:hover {
-                background:#222;
+                    background: #222;
                 }
             }
         }
-        
 
+        /* 時鐘文字動畫 */
         @keyframes animates {
-        100%{
-            filter: hue-rotate(360deg);
+            100% {
+                filter: hue-rotate(360deg);
             }
         }
     </style>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Luxurious+Roman&display=swap" rel="stylesheet">
-    <link rel='stylesheet' href='https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css' integrity='sha512-Kc323vGBEqzTmouAECnVceyQqyqdsSiqLQISBL29aUW4U/M7pSPA/gEUZQqv1cwx4OnYxTxve5UMg5GT6L4JJg==' crossorigin='anonymous'/>
+    <link rel='stylesheet' href='https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css'
+        integrity='sha512-Kc323vGBEqzTmouAECnVceyQqyqdsSiqLQISBL29aUW4U/M7pSPA/gEUZQqv1cwx4OnYxTxve5UMg5GT6L4JJg=='
+        crossorigin='anonymous' />
 </head>
 
 <body>
     <!-- 背景影片 -->
     <div class="background-video">
         <video muted autoplay loop>
-            <source src="./FINAL_FANTASY_PIXEL_REMASTER___Promotional_Trailer.mp4"
-                type="video/mp4">
+            <source src="./FINAL_FANTASY_PIXEL_REMASTER___Promotional_Trailer.mp4" type="video/mp4">
         </video>
     </div>
     <!-- 螢幕 -->
     <div class="tv-content">
         <div class="tv">
             <video muted autoplay loop>
-                <source src="./FINAL_FANTASY_PIXEL_REMASTER___Promotional_Trailer.mp4"
-                    type="video/mp4">
+                <source src="./FINAL_FANTASY_PIXEL_REMASTER___Promotional_Trailer.mp4" type="video/mp4">
             </video>
         </div>
     </div>
@@ -718,13 +713,13 @@
     </div>
 
     <!-- 時鐘1 -->
-        <div id="clock" class="content">
-            <div id="hour"></div>
-            <div id="minute"></div>
-            <div id="second"></div>
-            <div class="numbers"></div>
-            <div class="numbers2"></div>
-        </div>
+    <div id="clock" class="content">
+        <div id="hour"></div>
+        <div id="minute"></div>
+        <div id="second"></div>
+        <div class="numbers"></div>
+        <div class="numbers2"></div>
+    </div>
     <!-- 時區的地區、時間 -->
     <div class="clock-text">
         <div class="display">
@@ -805,29 +800,29 @@
         let playState = false
 
         //背景影片src清單
-        const videolist = ["./FINAL_FANTASY_PIXEL_REMASTER___Promotional_Trailer.mp4","./Final Fantasy Pixel Remaster_January Sale Trailer.mp4","FF PIXEL REMASTER Console version Promotion Trailer.mp4"]
+        const videolist = ["./FINAL_FANTASY_PIXEL_REMASTER___Promotional_Trailer.mp4", "./Final Fantasy Pixel Remaster_January Sale Trailer.mp4", "FF PIXEL REMASTER Console version Promotion Trailer.mp4"]
 
         // 時鐘內、外圈圖片、文字
         const logos = {
-            "area":[
-            {text:"XII",src:"./images/12_XII.png",alt:'Final Fantasy logo12'},
-            {text:"I",src:"./images/1_I.png",alt:'Final Fantasy logo1'},
-            {text:"II",src:"./images/2_II.png",alt:'Final Fantasy logo2'},
-            {text:"III",src:"./images/3_III.png",alt:'Final Fantasy logo3'},
-            {text:"IV",src:"./images/4_IV.png",alt:'Final Fantasy logo4'},
-            {text:"V",src:"./images/5_V.png",alt:'Final Fantasy logo5'},
-            {text:"VI",src:"./images/6_VI.png",alt:'Final Fantasy logo6'}, 
-            {text:"VII",src:"./images/7_VII.png",alt:'Final Fantasy logo7'},
-            {text:"VIII",src:"./images/8_VIII.png",alt:'Final Fantasy logo8'}, 
-            {text:"IX",src:"./images/9 IX.png",alt:'Final Fantasy logo9'},
-            {text:"X",src:"./images/10_X.png",alt:'Final Fantasy logo10'},
-            {text:"XI",src:"./images/11_XI.png",alt:'Final Fantasy logo11'}   
+            "area": [
+                { text: "XII", src: "./images/12_XII.png", alt: 'Final Fantasy logo12' },
+                { text: "I", src: "./images/1_I.png", alt: 'Final Fantasy logo1' },
+                { text: "II", src: "./images/2_II.png", alt: 'Final Fantasy logo2' },
+                { text: "III", src: "./images/3_III.png", alt: 'Final Fantasy logo3' },
+                { text: "IV", src: "./images/4_IV.png", alt: 'Final Fantasy logo4' },
+                { text: "V", src: "./images/5_V.png", alt: 'Final Fantasy logo5' },
+                { text: "VI", src: "./images/6_VI.png", alt: 'Final Fantasy logo6' },
+                { text: "VII", src: "./images/7_VII.png", alt: 'Final Fantasy logo7' },
+                { text: "VIII", src: "./images/8_VIII.png", alt: 'Final Fantasy logo8' },
+                { text: "IX", src: "./images/9 IX.png", alt: 'Final Fantasy logo9' },
+                { text: "X", src: "./images/10_X.png", alt: 'Final Fantasy logo10' },
+                { text: "XI", src: "./images/11_XI.png", alt: 'Final Fantasy logo11' }
             ],
-            "area2":[
-            {text:"XIV",src:"./images/14_XIV.png",alt:'Final Fantasy logo13',class:"logo-14"},
-            {text:"XV",src:"./images/15_XV.png",alt:'Final Fantasy logo14',class:"logo-15"},
-            {text:"",src:"./images/TACTICS.png",alt:'Final Fantasy logoTactics',class:"logo-tactics"},
-            {text:"XIII",src:"./images/13_XIII.png",alt:'Final Fantasy logo16',class:"logo-13"}
+            "area2": [
+                { text: "XIV", src: "./images/14_XIV.png", alt: 'Final Fantasy logo13', class: "logo-14" },
+                { text: "XV", src: "./images/15_XV.png", alt: 'Final Fantasy logo14', class: "logo-15" },
+                { text: "", src: "./images/TACTICS.png", alt: 'Final Fantasy logoTactics', class: "logo-tactics" },
+                { text: "XIII", src: "./images/13_XIII.png", alt: 'Final Fantasy logo16', class: "logo-13" }
             ]
         }
 
@@ -848,16 +843,16 @@
         let isDrageClick = false;
 
         // 拖曳事件開始
-        window.addEventListener('dragstart', function(e) {
-            if(isDrageClick){
+        window.addEventListener('dragstart', function (e) {
+            if (isDrageClick) {
                 offsetX = e.clientX - e.target.offsetLeft;
                 offsetY = e.clientY - e.target.offsetTop;
                 onMouseMove(e)
             }
         })
         // 拖曳事件結束
-        window.addEventListener('dragend', function(e) {
-            if(isDrageClick){
+        window.addEventListener('dragend', function (e) {
+            if (isDrageClick) {
                 onMouseMove(e)
             }
         })
@@ -895,17 +890,17 @@
         // 切換拖曳按鍵觸發
         drageBtn.onclick = () => {
             isDrageClick = !isDrageClick
-            if (isDrageClick){
+            if (isDrageClick) {
                 elClock.setAttribute('draggable', 'true')
                 elClock2.setAttribute('draggable', 'true')
                 tv.setAttribute('draggable', 'true')
                 elClockText.setAttribute('draggable', 'true')
 
-                imgs.forEach(img =>{
+                imgs.forEach(img => {
                     img.setAttribute('draggable', 'false')
                 })
             }
-            else{
+            else {
                 elClock.setAttribute('draggable', 'false')
                 elClock2.setAttribute('draggable', 'false')
                 tv.setAttribute('draggable', 'false')
@@ -972,9 +967,9 @@
         })
 
         // 播放影片按鈕
-        btnPlay.onclick = () =>{
+        btnPlay.onclick = () => {
             playState = !playState
-            if(playState){
+            if (playState) {
                 clearInterval(intervalVideo)
                 videoPause()
             }
@@ -985,12 +980,12 @@
         }
 
         // 影片讀取完後事件
-        video[1].onloadedmetadata = () =>{
-            duration = Math.floor(video[1].duration)       
+        video[1].onloadedmetadata = () => {
+            duration = Math.floor(video[1].duration)
         }
 
         // 影片可以播放後事件
-        video[1].oncanplaythrough = () =>{
+        video[1].oncanplaythrough = () => {
             duration = Math.floor(video[1].duration)
             // console.log(duration)            
         }
@@ -1005,50 +1000,50 @@
             intervalVideo = setInterval(() => {
                 Time += 1
                 // console.log(Time)
-                if(Time >= duration){
+                if (Time >= duration) {
                     Time = 0
 
-                    currIndex ++
-                    if(currIndex >= videolist.length){
+                    currIndex++
+                    if (currIndex >= videolist.length) {
                         currIndex = 0
                     }
                     videoPlay()
                     clearInterval(intervalVideo)
 
-                    setTimeout(startInterrval,0)
+                    setTimeout(startInterrval, 0)
                 }
-            },1000)
+            }, 1000)
         }
 
         //下一個影片
-        btnNext.onclick = () =>{
-            currIndex ++
-            if(currIndex >= videolist.length){
+        btnNext.onclick = () => {
+            currIndex++
+            if (currIndex >= videolist.length) {
                 currIndex = 0
             }
             videoPlay()
             startInterrval()
         }
         //上一個影片
-        btnPrevious.onclick = () =>{
-            currIndex --
-            if(currIndex < 0){
+        btnPrevious.onclick = () => {
+            currIndex--
+            if (currIndex < 0) {
                 currIndex = videolist.length - 1
             }
             videoPlay()
             startInterrval()
         }
         // 播放影片
-        function videoPlay(){
-            for(let i = 0;i < video.length; i++){
+        function videoPlay() {
+            for (let i = 0; i < video.length; i++) {
                 video[i].src = videolist[currIndex]
                 video[i].play()
             }
             btnPlay.innerHTML = `<i class="fa-solid fa-stop"></i>`
         }
         // 停止影片
-        function videoPause(){
-            for(let i = 0;i < video.length; i++){
+        function videoPause() {
+            for (let i = 0; i < video.length; i++) {
                 video[i].pause()
             }
             btnPlay.innerHTML = `<i class="fa-solid fa-play"></i>`
@@ -1091,33 +1086,33 @@
 
         // 時鐘1外圈的圖片文字HTML
         // Object.values可以將物件轉成陣列
-        Object.values(logos.area).forEach((imgs,index) =>{
+        Object.values(logos.area).forEach((imgs, index) => {
             const numbers = document.querySelector('.numbers')
             const span = document.createElement('span')
             const b = document.createElement('b')
             const img = document.createElement('img')
-            span.style.setProperty("--i",index)
+            span.style.setProperty("--i", index)
             b.innerText = imgs.text
             img.classList.add(`logo-${index}`)
             img.src = imgs.src
             img.alt = imgs.alt
-            span.append(b,img)
+            span.append(b, img)
             numbers.append(span)
         })
 
         // 時鐘1內圈的圖片文字HTML
-        Object.values(logos.area2).forEach((imgs,index) =>{
+        Object.values(logos.area2).forEach((imgs, index) => {
             const numbers2 = document.querySelector('.numbers2')
             const span = document.createElement('span')
             const b = document.createElement('b')
             const img = document.createElement('img')
-            
-            span.style.setProperty("--a",index)
+
+            span.style.setProperty("--a", index)
             b.innerText = imgs.text
             img.classList.add(imgs.class)
             img.src = imgs.src
-            img.alt = imgs.alt            
-            span.append(b,img)
+            img.alt = imgs.alt
+            span.append(b, img)
             numbers2.append(span)
         })
 
