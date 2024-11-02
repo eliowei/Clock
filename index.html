@@ -587,12 +587,7 @@
 
         /* 時鐘文字、播放影片按鈕容器 */
         .clock-text .display {
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            z-index: 999;
-            height: 135px;
+            height: 80px;
             width: 485px;
             background: black;
             border-radius: 6px;
@@ -614,7 +609,7 @@
 
         /* 時區的時間文字 */
         .text {
-            line-height: 85px;
+            line-height: 80px;
             color: #fff;
             font-size: 40px;
             font-weight: 600;
@@ -626,13 +621,20 @@
             font-family: 'PixeloidSansBold';
             animation: animates 8s linear infinite;
         }
-
+        /* 功能按鍵容器 */
+        .clock-text .display-list {
+            height: 70px;
+            width: 485px;
+            background: black;
+            border-radius: 6px;
+            text-align: center;
+            padding-top:10px;
+        }
 
         /* 貪食蛇遊戲按鈕 */
-        .display .btn-snake {
-            position: absolute;
-            left: 30%;
-            top: 40%;
+        .display-list .btn-snake {
+            display:inline-block;
+            height: 45px;
 
             i {
                 text-align: center;
@@ -648,11 +650,10 @@
             }
         }
 
-        /* 下一個影片按鈕 */
-        .display .btn-previous {
-            position: absolute;
-            left: 40%;
-            top: 40%;
+        /* 上一個影片按鈕 */
+        .display-list .btn-previous {
+            display:inline-block;
+            height: 45px;
 
             i {
                 text-align: center;
@@ -669,10 +670,9 @@
         }
 
         /* 播放/停止 影片按鈕 */
-        .display .btn-play {
-            position: absolute;
-            left: 50%;
-            top: 40%;
+        .display-list .btn-play {
+            display:inline-block;
+            height: 45px;
 
             i {
                 text-align: center;
@@ -689,11 +689,9 @@
         }
 
         /* 下一個影片按鈕 */
-        .display .btn-next {
-            position: absolute;
-            left: 60%;
-            top: 40%;
-
+        .display-list .btn-next {
+            display:inline-block;
+            height: 45px;
             i {
                 text-align: center;
                 font-size: 25px;
@@ -706,6 +704,28 @@
                     background: #222;
                 }
             }
+        }
+
+        /* 靜音/聲音按鍵 */
+        .display-list .btn-volume{
+            display:inline-block;
+            height: 45px;
+            i {
+                text-align: center;
+                font-size: 25px;
+                color: white;
+                padding: 10px;
+                border-radius: 5px;
+
+                &:hover {
+                    cursor: pointer;
+                    background: #222;
+                }
+            }
+        }
+        /* 往上垂直對齊 */
+        .display-list i {
+            vertical-align: top;
         }
 
         /* 時鐘文字動畫 */
@@ -777,10 +797,13 @@
         <div class="display">
             <span class="local-text">台灣</span>
             <span class="text">00:00:00</span>
+        </div>
+        <div class="display-list">
             <div class="btn-snake"><i class="fa-solid fa-staff-snake"></i></div>
             <div class="btn-previous"><i class="fa-solid fa-backward"></i></div>
             <div class="btn-play"><i class="fa-solid fa-stop"></i></div>
             <div class="btn-next"><i class="fa-solid fa-forward"></i></div>
+            <div class="btn-volume"><i class="fa-solid fa-volume-xmark"></i></div>
         </div>
     </div>
 
@@ -878,8 +901,11 @@
         const btnPrevious = document.querySelector('.btn-previous')
         const btnPlay = document.querySelector('.btn-play')
         const btnNext = document.querySelector('.btn-next')
+        const btnVolume = document.querySelector('.btn-volume')
         // 播放影片按鈕觸發狀態
-        let playState = false
+        let isPlayState = false
+        // 聲音按鍵觸發狀態
+        let isVolumeState = true
 
         //背景影片src清單
         const videolist = ["./FINAL_FANTASY_PIXEL_REMASTER___Promotional_Trailer.mp4", "./Final Fantasy Pixel Remaster_January Sale Trailer.mp4", "FF PIXEL REMASTER Console version Promotion Trailer.mp4"]
@@ -1049,8 +1075,8 @@
             if (isSnakeClicked)
                 return
 
-            playState = !playState
-            if (playState) {
+            isPlayState = !isPlayState
+            if (isPlayState) {
                 clearInterval(intervalVideo)
                 videoPause()
             }
@@ -1058,7 +1084,7 @@
                 startInterrval()
                 videoPlay()
             }
-            console.log("btnPlay", playState)
+            console.log("btnPlay", isPlayState)
         }
 
         // 影片讀取完後事件
@@ -1121,6 +1147,22 @@
             videoPlay()
             startInterrval()
         }
+        // 靜音/音量
+        btnVolume.onclick = () =>{
+            if (isSnakeClicked)
+                return
+
+            isVolumeState = !isVolumeState
+            if(!isVolumeState){
+                video[1].muted = false
+                video[1].volume = "0.5"
+                btnVolume.innerHTML = `<i class="fa-solid fa-volume-high"></i>`
+            }
+            else if(isVolumeState){
+                video[1].muted = true
+                btnVolume.innerHTML = `<i class="fa-solid fa-volume-xmark"></i>`
+            }
+        }
         // 播放影片
         function videoPlay() {
             for (let i = 0; i < video.length; i++) {
@@ -1137,6 +1179,8 @@
             btnPlay.innerHTML = `<i class="fa-solid fa-play"></i>`
         }
 
+        
+
         // 貪食蛇遊戲按下事件
         btnSnakeGame.onclick = () => {
             isSnakeClicked = !isSnakeClicked
@@ -1145,8 +1189,8 @@
                 // 停止影片
                 clearInterval(intervalVideo)
                 videoPause()
-                if (!playState) {
-                    playState = true
+                if (!isPlayState) {
+                    isPlayState = true
                 }
                 // 影片不顯示
                 video[0].style.display = 'none'
@@ -1165,8 +1209,8 @@
                 // 播放影片
                 videoPlay()
                 startInterrval()
-                if (playState) {
-                    playState = false
+                if (isPlayState) {
+                    isPlayState = false
                 }
                 // 影片顯示
                 video[0].style.display = 'block'
