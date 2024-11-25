@@ -554,7 +554,7 @@
             font-size: 20px;
             text-align: center;
             font-weight: bold;
-            display:none
+            display: none
         }
 
         #MyCanvas {
@@ -582,7 +582,7 @@
             background: black;
             border-radius: 10px;
             cursor: default;
-            z-index:100;
+            z-index: 100;
             /* animation: animates 8s linear infinite; */
         }
 
@@ -622,6 +622,7 @@
             font-family: 'PixeloidSansBold';
             animation: animates 8s linear infinite;
         }
+
         /* 功能按鍵容器 */
         .clock-text .display-list {
             height: 70px;
@@ -629,12 +630,12 @@
             background: black;
             border-radius: 6px;
             text-align: center;
-            padding-top:10px;
+            padding-top: 10px;
         }
 
         /* 貪食蛇遊戲按鈕 */
         .display-list .btn-snake {
-            display:inline-block;
+            display: inline-block;
             height: 45px;
 
             i {
@@ -653,7 +654,7 @@
 
         /* 上一個影片按鈕 */
         .display-list .btn-previous {
-            display:inline-block;
+            display: inline-block;
             height: 45px;
 
             i {
@@ -672,7 +673,7 @@
 
         /* 播放/停止 影片按鈕 */
         .display-list .btn-play {
-            display:inline-block;
+            display: inline-block;
             height: 45px;
 
             i {
@@ -691,8 +692,9 @@
 
         /* 下一個影片按鈕 */
         .display-list .btn-next {
-            display:inline-block;
+            display: inline-block;
             height: 45px;
+
             i {
                 text-align: center;
                 font-size: 25px;
@@ -708,9 +710,10 @@
         }
 
         /* 靜音/聲音按鍵 */
-        .display-list .btn-volume{
-            display:inline-block;
+        .display-list .btn-volume {
+            display: inline-block;
             height: 45px;
+
             i {
                 text-align: center;
                 font-size: 25px;
@@ -724,6 +727,7 @@
                 }
             }
         }
+
         /* 往上垂直對齊 */
         .display-list i {
             vertical-align: top;
@@ -1004,12 +1008,14 @@
                 elClock2.setAttribute('draggable', 'true')
                 tv.setAttribute('draggable', 'true')
                 elClockText.setAttribute('draggable', 'true')
+                alert('拖曳切換:開')
             }
             else {
                 elClock.setAttribute('draggable', 'false')
                 elClock2.setAttribute('draggable', 'false')
                 tv.setAttribute('draggable', 'false')
                 elClockText.setAttribute('draggable', 'false')
+                alert('拖曳切換:關')
             }
         }
 
@@ -1149,17 +1155,17 @@
             startInterrval()
         }
         // 靜音/音量
-        btnVolume.onclick = () =>{
+        btnVolume.onclick = () => {
             if (isSnakeClicked)
                 return
 
             isVolumeState = !isVolumeState
-            if(!isVolumeState){
+            if (!isVolumeState) {
                 video[1].muted = false
                 video[1].volume = "0.5"
                 btnVolume.innerHTML = `<i class="fa-solid fa-volume-high"></i>`
             }
-            else if(isVolumeState){
+            else if (isVolumeState) {
                 video[1].muted = true
                 btnVolume.innerHTML = `<i class="fa-solid fa-volume-xmark"></i>`
             }
@@ -1180,7 +1186,7 @@
             btnPlay.innerHTML = `<i class="fa-solid fa-play"></i>`
         }
 
-        
+
 
         // 貪食蛇遊戲按下事件
         btnSnakeGame.onclick = () => {
@@ -1204,7 +1210,7 @@
                 // 顯示貪食蛇遊戲區塊
                 canvas.style.display = 'block'
                 // 顯示貪食蛇遊戲分數
-                snakeGameScoreContent.style.display ='block'
+                snakeGameScoreContent.style.display = 'block'
                 Game = setInterval(snakCheck, 100)
             } else {
                 // 播放影片
@@ -1224,7 +1230,7 @@
                 // 不顯示貪食蛇遊戲區塊
                 canvas.style.display = 'none'
                 // 不顯示貪食蛇遊戲分數
-                snakeGameScoreContent.style.display ='none'
+                snakeGameScoreContent.style.display = 'none'
                 removeGame()
             }
         }
