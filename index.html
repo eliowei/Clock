@@ -937,7 +937,7 @@
         const btnUpIcon = document.querySelector('.btn-up>.fa-up-long')
         const btnDownIcon = document.querySelector('.btn-down>.fa-down-long')
         const btnLeftIcon = document.querySelector('.btn-left>.fa-left-long')
-        const bntRightIcon = document.querySelector('.btn-right>.fa-right-long')
+        const btnRightIcon = document.querySelector('.btn-right>.fa-right-long')
         // 切換貪食蛇遊戲icon
         const btnSnakeGameIcon = document.querySelector('.btn-snake>i')
         // 切換貪食蛇遊戲狀態
@@ -1435,8 +1435,10 @@
 
         // 避免因連續按不同方向導致畫面跟座標未同步
         function changeDirection(e) {
-            if (isSnakeClicked && ['ArrowUp', 'ArrowDown', 'ArrowLeft', 'ArrowRight'].includes(e.key)) {
-                e.preventDefault();
+            if (e.preventDefault) {
+                if (isSnakeClicked && ['ArrowUp', 'ArrowDown', 'ArrowLeft', 'ArrowRight'].includes(e.key)) {
+                    e.preventDefault();
+                }
             }
 
             if (e.key == 'ArrowRight' && direction != 'Left') {
@@ -1452,20 +1454,36 @@
         }
         // 方向按鈕檢查
         window.addEventListener('click', (e) => {
-            const target = e.target
+            if (!isSnakeClicked) return;  // 如果遊戲未開始則不處理
+
+            const target = e.target;
+
             switch (target) {
                 case btnUpIcon:
-                    changeDirection({ key: 'ArrowUp' })
+                    if (direction !== 'Down') {
+                        direction = 'Up';
+                    }
                     break;
                 case btnDownIcon:
-                    changeDirection({ key: 'ArrowDown' })
+                    if (direction !== 'Up') {
+                        direction = 'Down';
+                    }
                     break;
                 case btnLeftIcon:
-                    changeDirection({ key: 'ArrowLeft' })
+                    if (direction !== 'Right') {
+                        direction = 'Left';
+                    }
                     break;
-                case bntRightIcon:
-                    changeDirection({ key: 'ArrowRight' })
+                case btnRightIcon:  // 修正變數名稱
+                    if (direction !== 'Left') {
+                        direction = 'Right';
+                    }
                     break;
+            }
+
+            if (direction) {
+                window.removeEventListener('keydown', changeDirection);
+                window.addEventListener('keydown', changeDirection);
             }
         })
 
