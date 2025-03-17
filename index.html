@@ -34,6 +34,7 @@
             width: 100px;
             border-radius: 5px;
             background: rgba(255, 255, 255, 0.3);
+            backdrop-filter: blur(8px);
             z-index: 1000;
         }
 
@@ -77,6 +78,7 @@
             border: 0;
             border-radius: 5px;
             background: rgba(255, 255, 255, 0.3);
+            backdrop-filter: blur(8px);
             text-align: center;
             display: none;
             z-index: 1000;
@@ -750,6 +752,29 @@
             }
         }
 
+        /* 控制上、下、左、右 */
+        .display-list .btn-up,
+        .display-list .btn-down,
+        .display-list .btn-left,
+        .display-list .btn-right {
+            display: none;
+            height: 45px;
+
+            i {
+                text-align: center;
+                font-size: 25px;
+                color: white;
+                padding: 10px;
+                border-radius: 5px;
+
+                &:hover {
+                    cursor: pointer;
+                    background: #222;
+                }
+            }
+        }
+
+
         /* 往上垂直對齊 */
         .display-list i {
             vertical-align: top;
@@ -845,6 +870,10 @@
             <div class="btn-play"><i class="fa-solid fa-stop"></i></div>
             <div class="btn-next"><i class="fa-solid fa-forward"></i></div>
             <div class="btn-volume"><i class="fa-solid fa-volume-xmark"></i></div>
+            <div class="btn-up"><i class="fa-solid fa-up-long"></i></div>
+            <div class="btn-down"><i class="fa-solid fa-down-long"></i></div>
+            <div class="btn-left"><i class="fa-solid fa-left-long"></i></div>
+            <div class="btn-right"><i class="fa-solid fa-right-long"></i></div>
         </div>
     </div>
     <!-- luxon時間套件 -->
@@ -899,6 +928,16 @@
         const logo = document.querySelectorAll('img')
         // 切換貪食蛇遊戲按鈕
         const btnSnakeGame = document.querySelector('.btn-snake')
+        // 貪食蛇遊戲方向按鈕
+        const btnUp = document.querySelector('.btn-up')
+        const btnDown = document.querySelector('.btn-down')
+        const btnLeft = document.querySelector('.btn-left')
+        const bntRight = document.querySelector('.btn-right')
+        // 貪食蛇遊戲方向按鈕icon
+        const btnUpIcon = document.querySelector('.btn-up>.fa-up-long')
+        const btnDownIcon = document.querySelector('.btn-down>.fa-down-long')
+        const btnLeftIcon = document.querySelector('.btn-left>.fa-left-long')
+        const bntRightIcon = document.querySelector('.btn-right>.fa-right-long')
         // 切換貪食蛇遊戲icon
         const btnSnakeGameIcon = document.querySelector('.btn-snake>i')
         // 切換貪食蛇遊戲狀態
@@ -1224,6 +1263,17 @@
                 // 影片不顯示
                 video[0].style.display = 'none'
                 video[1].style.display = 'none'
+                // 影片按鈕不顯示
+                btnPrevious.style.display = 'none'
+                btnPlay.style.display = 'none'
+                btnNext.style.display = 'none'
+                btnVolume.style.display = 'none'
+
+                // 貪食蛇方向顯示
+                btnUp.style.display = 'inline-block'
+                btnDown.style.display = 'inline-block'
+                btnLeft.style.display = 'inline-block'
+                bntRight.style.display = 'inline-block'
                 // 更改背景圖片
                 tv.style.backgroundImage = `url('./final-fantasy-xiv-endwalker.jpg')`
                 bacgkroundVideo.style.backgroundImage = `url('./final-fantasy-xiv-endwalker.jpg')`
@@ -1244,6 +1294,16 @@
                 // 影片顯示
                 video[0].style.display = 'block'
                 video[1].style.display = 'block'
+                // 影片按鈕顯示
+                btnPrevious.style.display = 'inline-block'
+                btnPlay.style.display = 'inline-block'
+                btnNext.style.display = 'inline-block'
+                btnVolume.style.display = 'inline-block'
+                // 貪食蛇方向按鈕不顯示
+                btnUp.style.display = 'none'
+                btnDown.style.display = 'none'
+                btnLeft.style.display = 'none'
+                bntRight.style.display = 'none'
                 // 更改背景圖片
                 tv.style.backgroundImage = ""
                 bacgkroundVideo.style.backgroundImage = ""
@@ -1375,6 +1435,10 @@
 
         // 避免因連續按不同方向導致畫面跟座標未同步
         function changeDirection(e) {
+            if (isSnakeClicked && ['ArrowUp', 'ArrowDown', 'ArrowLeft', 'ArrowRight'].includes(e.key)) {
+                e.preventDefault();
+            }
+
             if (e.key == 'ArrowRight' && direction != 'Left') {
                 direction = 'Right'
             } else if (e.key == 'ArrowDown' && direction != 'Up') {
@@ -1386,6 +1450,24 @@
             }
             window.removeEventListener('keydown', changeDirection);
         }
+        // 方向按鈕檢查
+        window.addEventListener('click', (e) => {
+            const target = e.target
+            switch (target) {
+                case btnUpIcon:
+                    changeDirection({ key: 'ArrowUp' })
+                    break;
+                case btnDownIcon:
+                    changeDirection({ key: 'ArrowDown' })
+                    break;
+                case btnLeftIcon:
+                    changeDirection({ key: 'ArrowLeft' })
+                    break;
+                case bntRightIcon:
+                    changeDirection({ key: 'ArrowRight' })
+                    break;
+            }
+        })
 
         // 讀取最高分數
         if (localStorage.Game) {
